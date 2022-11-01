@@ -1,3 +1,4 @@
+from pydoc import visiblename
 from users import views
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
@@ -9,5 +10,6 @@ urlpatterns = [
     path("mock/", views.mockView.as_view(), name="mockView"),
     path('api/token/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('follow/<int:user_id>/', views.FollowView.as_view(), name="Followview."),
     
 ]
