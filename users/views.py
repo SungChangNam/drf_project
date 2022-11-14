@@ -4,7 +4,8 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from users.models import User
-from users.serializers import UserSerializer ,CustomTokenObtainPairSerializer
+from users.serializers import UserSerializer ,CustomTokenObtainPairSerializer,UserProfileSerializer
+
 
 
 from rest_framework_simplejwt.views import (
@@ -12,6 +13,7 @@ from rest_framework_simplejwt.views import (
 )
 
 # Create your views here.
+
 
 
 class UserView(APIView):
@@ -40,6 +42,8 @@ class FollowView(APIView):
 
 
 
+
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     
@@ -54,5 +58,11 @@ class mockView(APIView):
         user.save()
         return Response("get 요청")
 
-    
+
+class ProfileView(APIView):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        serializer =UserProfileSerializer(user)
+        
+        return Response(serializer.data)
 
